@@ -9,6 +9,7 @@ const allSections = () => {
 }
 
 htmlContainer.innerHTML = allSections();
+let list = document.querySelector('#list');
 
 const formHtml = () => {
     return `
@@ -23,7 +24,7 @@ const formHtml = () => {
     let formContainer = document.querySelector('#form');
     formContainer.innerHTML = formHtml();
 
-let list = document.querySelector('#list');
+
 const loadListItems = () => {
      array.forEach((item, index) => {
         let number = index + 1;
@@ -41,8 +42,7 @@ const addItemToList = () => {
     button.addEventListener('click', () => {
         let valueOfInput = textinput.value
          array.push(valueOfInput);
-         list.innerHTML = '';
-         loadListItems();
+         refreshList();
          textinput.value = '';
     });
 }
@@ -54,10 +54,14 @@ const deleteItemFromList = () => {
            let id = event.target.id.split('deletebutton-')[1]
            document.querySelector(`#list-${id}`).remove();
            array.splice(parseInt(id)-1, 1);
-           list.innerHTML = '';
-           loadListItems();
+           refreshList();
         } 
-    })  
+    });
+}
+
+const refreshList = () => {
+    list.innerHTML = '';
+    loadListItems();
 }
 
 loadListItems();
